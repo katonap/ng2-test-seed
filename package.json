@@ -1,29 +1,38 @@
 {
-  "name": "ng2-test-seed",
-  "version": "0.0.1",
-  "description": "Setup seed for Angular 2 application",
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/angular/ng-test-seed.git"
-  },
-  "scripts": {
-    "clean": "rimraf src/**/*.js src/**/*.js.map",
-    "build": "tsc",
-    "watch": "tsc --watch",
-    "serve": "http-server -p 9090 -c-1",
-    "test": "karma start karma.conf.js"
-  },
-  "devDependencies": {
-    "angular2": "2.0.0-alpha.44",
-    "http-server": "^0.8.5",
-    "jasmine": "2.3.2",
-    "karma": "^0.12.23",
-    "karma-chrome-launcher": "^0.1.4",
-    "karma-cli": "^0.0.4",
-    "karma-jasmine": "^0.3.6",
-    "rimraf": "^2.4.3",
-    "systemjs": "^0.19.4",
-    "typescript": "1.6.2"
-  }
+	"name": "ng2-test-seed",
+	"version": "0.2.0",
+	"description": "Setup seed for Angular 2 application",
+	"license": "Apache-2.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/angular/ng-test-seed.git"
+	},
+	"scripts": {
+		"clean": "rimraf src/**/*.js src/**/*.js.map",
+		"init": "typings install",
+		"build": "tsc",
+		"watch": "tsc --watch",
+		"serve": "http-server -p 9090 -c-1",
+		"test": "karma start karma.conf.js"
+	},
+	"devDependencies": {
+		"http-server": "0.9.0",
+		"jasmine": "2.4.1",
+		"karma": "0.13.22",
+		"karma-chrome-launcher": "0.2.2",
+		"karma-cli": "0.1.2",
+		"karma-jasmine": "0.3.8",
+		"rimraf": "2.5.2",
+		"typescript": "1.8.9",
+		"typings": "0.7.9"
+	},
+	"dependencies": {
+		"angular2": "2.0.0-beta.9",
+		"es6-promise": "3.1.2",
+		"es6-shim": "0.35.0",
+		"reflect-metadata": "0.1.3",
+		"rxjs": "5.0.0-beta.2",
+		"systemjs": "0.19.24",
+		"zone.js": "0.6.4"
+	}
 }

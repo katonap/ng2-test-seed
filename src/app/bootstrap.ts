@@ -1,7 +1,7 @@
-import {bootstrap} from 'angular2/angular2';
-import {UserService} from './user-service';
+import {bootstrap} from 'angular2/platform/browser';
+
 import {AppComponent} from './app-component';
 import {LoginService} from './login-service';
-
+import {UserService} from './user-service';
 
 bootstrap(AppComponent, [LoginService, UserService]);

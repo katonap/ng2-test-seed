@@ -31,3 +31,9 @@ src/app/*.js
 src/app/*.map
 src/test/*.js
 src/test/*.map
+
+# Typescript definitions
+typings
+
+# Visual Studio Code settings
+.vscode
