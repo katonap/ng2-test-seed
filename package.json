@@ -24,18 +24,18 @@
 		"karma-jasmine": "0.3.8",
 		"rimraf": "2.5.2",
 		"typescript": "1.8.9",
-		"typings": "0.7.9"
+		"typings": "0.7.11"
 	},
 	"dependencies": {
-		"angular2": "2.0.0-beta.12",
+		"angular2": "2.0.0-beta.13",
 		"es6-promise": "3.1.2",
 		"es6-shim": "0.35.0",
 		"reflect-metadata": "0.1.3",
 		"rxjs": "5.0.0-beta.2",
-		"systemjs": "0.19.24",
-		"zone.js": "0.6.6"
+		"systemjs": "0.19.25",
+		"zone.js": "0.6.8"
 	},
 	"___COMMENTS___": {
-		"rxjs": "with rxjs 5.0.0-beta.3 installed SystemJS throws exception in IE, so stick to beta.2"
+		"rxjs": "with rxjs 5.0.0-beta.3/4 installed SystemJS throws exception in IE, so stick to beta.2"
 	}
 }
