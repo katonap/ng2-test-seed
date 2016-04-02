@@ -8,7 +8,7 @@ import {BorderComponent} from './border-component';
 	template: `
 	<my-fancy-border title="The PIN Machine">
 		<my-greeting></my-greeting>
-    </my-fancy-border>
+	</my-fancy-border>
 	`,
 	directives: [GreetingComponent, BorderComponent]
 })

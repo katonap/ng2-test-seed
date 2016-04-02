@@ -5,18 +5,18 @@ import {UserService} from './user-service';
 @Component({
 	selector: 'my-greeting',
 	template: `
-    <input [(ngModel)]="user.pin" placeholder="1111" type="number" />
-    <button (click)="enter()">Enter</button>
-    <h3>Status: {{greeting}}</h3>
+	<input [(ngModel)]="user.pin" placeholder="1111" type="number" />
+	<button (click)="enter()">Enter</button>
+	<h3>Status: {{greeting}}</h3>
 	`,
 	styles: [`
-    input {
+	input {
 		font-family: monospace;
 		font-size: 2em;
 		width: 4em;
 	}
 	
-    button {
+	button {
 		border: 2px solid;
 		height: 2em;
 	}
