@@ -1,5 +1,4 @@
 import {provide} from 'angular2/core';
-import {TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS} from 'angular2/platform/testing/browser';
 import {
 	beforeEachProviders,
 	ComponentFixture,
@@ -9,7 +8,6 @@ import {
 	inject,
 	injectAsync,
 	it,
-	setBaseTestProviders,
 	TestComponentBuilder,
 	tick
 } from 'angular2/testing';
@@ -19,8 +17,6 @@ import {LoginService} from '../app/login-service';
 import {GreetingComponent} from '../app/greeting-component';
 
 
-
-setBaseTestProviders(TEST_BROWSER_PLATFORM_PROVIDERS, TEST_BROWSER_APPLICATION_PROVIDERS);
 
 class MockLoginService implements LoginService {
 	public login(pin: number): Promise<boolean> {
