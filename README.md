@@ -25,10 +25,6 @@ Use npm to get dependencies:
 
 `npm install`
 
-Then install typescript definition files:
-
-`npm run init`
-
 Take a look at the `src` folder. All application and test code, as well as
 some configuration files, are in here. The `app` folder contains the actual
 application code, written in TypeScript, as well as associated template and

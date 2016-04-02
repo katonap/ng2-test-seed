@@ -8,8 +8,8 @@
 		"url": "https://github.com/angular/ng-test-seed.git"
 	},
 	"scripts": {
+		"postinstall": "typings install",
 		"clean": "rimraf src/**/*.js src/**/*.js.map",
-		"init": "typings install",
 		"build": "tsc",
 		"watch": "tsc --watch",
 		"serve": "http-server -p 9090 -c-1",
