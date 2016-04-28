@@ -1,11 +1,11 @@
 import {provide} from 'angular2/core';
 import {
+	async,
 	beforeEachProviders,
 	describe,
 	expect,
 	fakeAsync,
 	inject,
-	injectAsync,
 	it,
 	tick
 } from 'angular2/testing';
@@ -16,7 +16,7 @@ import {LoginService} from '../app/login-service';
 
 
 describe('user service', () => {
-	beforeEachProviders(() => [LoginService, UserService])
+	beforeEachProviders(() => [LoginService, UserService]);
 
 	it('should validate pins', inject([UserService], (service: UserService) => {
 		service.pin = 12345;
@@ -32,19 +32,19 @@ describe('user service', () => {
 		expect(service.isValidPin()).toBe(false);
 	}));
 
-	it('should greet when pin is wrong', injectAsync([UserService], (service: UserService) => {
+	it('should greet when pin is wrong', async(inject([UserService], (service: UserService) => {
 		service.pin = 9999;
-		return service.getGreeting().then((greeting) => {
+		service.getGreeting().then((greeting) => {
 			expect(greeting).toEqual('Login failure!');
 		});
-	}), 3000);
+	})), 3000);
 
-	it('should greet when pin is right', injectAsync([UserService], (service: UserService) => {
+	it('should greet when pin is right', async(inject([UserService], (service: UserService) => {
 		service.pin = 2015;
-		return service.getGreeting().then((greeting) => {
+		service.getGreeting().then((greeting) => {
 			expect(greeting).toEqual('Welcome!');
 		});
-	}), 3000);
+	})), 3000);
 });
 
 class MockLoginService implements LoginService {
@@ -56,11 +56,11 @@ class MockLoginService implements LoginService {
 describe('with mocked login', () => {
 	beforeEachProviders(() => [provide(LoginService, { useClass: MockLoginService }), UserService]);
 
-	it('should greet', injectAsync([UserService], (service: UserService) => {
-		return service.getGreeting().then((greeting) => {
+	it('should greet', async(inject([UserService], (service: UserService) => {
+		service.getGreeting().then((greeting) => {
 			expect(greeting).toEqual('Welcome!');
 		});
-	}));
+	})));
 });
 
 describe('with fake async', () => {

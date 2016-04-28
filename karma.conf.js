@@ -1,4 +1,4 @@
-module.exports = function(config) {
+module.exports = function (config) {
 	config.set({
 
 		basePath: '',
@@ -6,34 +6,48 @@ module.exports = function(config) {
 		frameworks: ['jasmine'],
 
 		files: [
-			// paths loaded by Karma
-			{ pattern: 'node_modules/es6-shim/es6-shim.min.js', included: true, watched: true },
-			{ pattern: 'node_modules/systemjs/dist/system-polyfills.js', included: true, watched: true },
-			{ pattern: 'node_modules/systemjs/dist/system.src.js', included: true, watched: true },
-			{ pattern: 'node_modules/rxjs/bundles/Rx.js', included: true, watched: true },
-			{ pattern: 'node_modules/angular2/bundles/angular2.js', included: true, watched: true },
-			{ pattern: 'node_modules/angular2/bundles/angular2-polyfills.js', included: true, watched: true },
-			{ pattern: 'node_modules/angular2/bundles/testing.dev.js', included: true, watched: true },
+			// System.js for module loading
+			'node_modules/systemjs/dist/system-polyfills.js',
+			'node_modules/systemjs/dist/system.src.js',
+
+			// Polyfills.
+			'node_modules/es6-shim/es6-shim.js',
+			'node_modules/angular2/bundles/angular2-polyfills.js',
+
+			// Zone.js dependencies
+			// Note - do not include zone.js itself here, it is already
+			// included in angular2-polyfills
+			'node_modules/zone.js/dist/jasmine-patch.js',
+			'node_modules/zone.js/dist/async-test.js',
+			'node_modules/zone.js/dist/fake-async-test.js',
+
+			// RxJs.
+			'node_modules/rxjs/bundles/Rx.js',
+
+			// Angular 2 itself and the testing library.
+			'node_modules/angular2/bundles/angular2.js',
+			'node_modules/angular2/bundles/testing.dev.js',
+
 			{ pattern: 'karma-test-shim.js', included: true, watched: true },
-			{ pattern: 'src/test/matchers.js', included: true, watched: true },
+			{ pattern: 'built/test/matchers.js', included: true, watched: true },
 
 			// paths loaded via module imports
-			{ pattern: 'src/**/*.js', included: false, watched: true },
+			{ pattern: 'built/**/*.js', included: false, watched: true },
 
 			// paths loaded via Angular's component compiler
 			// (these paths need to be rewritten, see proxies section)
-			{ pattern: 'src/**/*.html', included: false, watched: true },
-			{ pattern: 'src/**/*.css', included: false, watched: true },
+			{ pattern: 'built/**/*.html', included: false, watched: true },
+			{ pattern: 'built/**/*.css', included: false, watched: true },
 
 			// paths to support debugging with source maps in dev tools
 			{ pattern: 'src/**/*.ts', included: false, watched: false },
-			{ pattern: 'src/**/*.js.map', included: false, watched: false }
+			{ pattern: 'built/**/*.js.map', included: false, watched: false }
 		],
 
 		// proxied base paths
 		proxies: {
 			// required for component assests fetched by Angular's compiler
-			"/app/": "/base/src/app/"
+			"/app/": "/base/built/app/"
 		},
 
 		reporters: ['progress'],
