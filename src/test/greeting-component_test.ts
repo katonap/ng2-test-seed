@@ -86,19 +86,19 @@ describe('greeting component', () => {
 		});
 	}));
 
-	// it('should accept pin (with fakeAsync)', fakeAsync(() => {
-	// 	let fixture: ComponentFixture;
-	// 	builder.createAsync(GreetingComponent).then((rootFixture) => {
-	// 		fixture = rootFixture;
-	// 	});
+	it('should accept pin (with fakeAsync)', fakeAsync(() => {
+		let fixture: ComponentFixture;
+		builder.createAsync(GreetingComponent).then((rootFixture) => {
+			fixture = rootFixture;
+		});
 
-	// 	tick();
+		tick();
 
-	// 	let compiled = fixture.nativeElement;
-	// 	compiled.querySelector('button').click();
-	// 	tick();
-	// 	fixture.detectChanges();
+		let compiled = fixture.nativeElement;
+		compiled.querySelector('button').click();
+		tick();
+		fixture.detectChanges();
 
-	// 	expect(compiled.querySelector('h3')).toHaveText('Status: Welcome!');
-	// }));
+		expect(compiled.querySelector('h3')).toHaveText('Status: Welcome!');
+	}));
 });
