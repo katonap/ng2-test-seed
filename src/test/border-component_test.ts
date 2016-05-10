@@ -1,3 +1,4 @@
+import {Component} from '@angular/core';
 import {
 	async,
 	beforeEachProviders,
@@ -6,10 +7,9 @@ import {
 	expect,
 	iit,
 	inject,
-	it,
-	TestComponentBuilder
-} from 'angular2/testing';
-import {Component} from 'angular2/core';
+	it
+} from '@angular/core/testing';
+import {ComponentFixture, TestComponentBuilder} from '@angular/compiler/testing';
 
 import {BorderComponent} from '../app/border-component';
 
@@ -22,7 +22,7 @@ class TestComponent { }
 describe('greeting component', () => {
 	it('should wrap content', async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
 		tcb.overrideTemplate(TestComponent, '<my-fancy-border>Content</my-fancy-border>')
-			.createAsync(TestComponent).then((fixture) => {
+			.createAsync(TestComponent).then((fixture: ComponentFixture<TestComponent>) => {
 				fixture.detectChanges();
 				let compiled = fixture.nativeElement;
 
@@ -32,7 +32,7 @@ describe('greeting component', () => {
 
 	it('should include a title', async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
 		tcb.overrideTemplate(TestComponent, '<my-fancy-border title="ABC"></my-fancy-border>')
-			.createAsync(TestComponent).then((fixture) => {
+			.createAsync(TestComponent).then((fixture: ComponentFixture<TestComponent>) => {
 				fixture.detectChanges();
 				let compiled = fixture.nativeElement;
 

@@ -1,4 +1,4 @@
-import {provide} from 'angular2/core';
+import {provide} from '@angular/core';
 import {
 	async,
 	beforeEachProviders,
@@ -8,7 +8,7 @@ import {
 	inject,
 	it,
 	tick
-} from 'angular2/testing';
+} from '@angular/core/testing';
 
 import {UserService} from '../app/user-service';
 import {LoginService} from '../app/login-service';
@@ -66,7 +66,7 @@ describe('with mocked login', () => {
 describe('with fake async', () => {
 	beforeEachProviders(() => [LoginService, UserService]);
 
-	it('should greet (with fakeAsync)', inject([UserService], fakeAsync((service: UserService) => {
+	it('should greet (with fakeAsync)', fakeAsync(inject([UserService], (service: UserService) => {
 		let greeting: string;
 		service.getGreeting().then((value) => {
 			greeting = value;

@@ -1,17 +1,16 @@
-import {provide} from 'angular2/core';
+import {provide} from '@angular/core';
 import {
 	async,
 	beforeEach,
 	beforeEachProviders,
-	ComponentFixture,
 	describe,
 	expect,
 	fakeAsync,
 	inject,
 	it,
-	TestComponentBuilder,
 	tick
-} from 'angular2/testing';
+} from '@angular/core/testing';
+import {ComponentFixture, TestComponentBuilder} from "@angular/compiler/testing";
 
 import {UserService} from '../app/user-service';
 import {LoginService} from '../app/login-service';
@@ -38,7 +37,7 @@ describe('greeting component', () => {
 	}));
 
 	it('should ask for PIN', async(() => {
-		builder.createAsync(GreetingComponent).then((fixture) => {
+		builder.createAsync(GreetingComponent).then((fixture: ComponentFixture<GreetingComponent>) => {
 			fixture.detectChanges();
 			let compiled = fixture.nativeElement;
 
@@ -48,7 +47,7 @@ describe('greeting component', () => {
 	}));
 
 	it('should change greeting', async(() => {
-		builder.createAsync(GreetingComponent).then((fixture) => {
+		builder.createAsync(GreetingComponent).then((fixture: ComponentFixture<GreetingComponent>) => {
 			fixture.detectChanges();
 			(<GreetingComponent>fixture.componentInstance).greeting = "Foobar";
 			fixture.detectChanges();
@@ -63,7 +62,7 @@ describe('greeting component', () => {
 		builder
 			.overrideTemplate(GreetingComponent, `<span>{{greeting}}<span>`)
 			.createAsync(GreetingComponent)
-			.then((fixture) => {
+			.then((fixture: ComponentFixture<GreetingComponent>) => {
 				fixture.detectChanges();
 
 				let compiled = fixture.nativeElement;
@@ -73,7 +72,7 @@ describe('greeting component', () => {
 	}));
 
 	it('should accept pin', async(() => {
-		builder.createAsync(GreetingComponent).then((fixture) => {
+		builder.createAsync(GreetingComponent).then((fixture: ComponentFixture<GreetingComponent>) => {
 			fixture.detectChanges();
 
 			let compiled = fixture.nativeElement;
@@ -87,8 +86,8 @@ describe('greeting component', () => {
 	}));
 
 	it('should accept pin (with fakeAsync)', fakeAsync(() => {
-		let fixture: ComponentFixture;
-		builder.createAsync(GreetingComponent).then((rootFixture) => {
+		let fixture: ComponentFixture<GreetingComponent>;
+		builder.createAsync(GreetingComponent).then((rootFixture: ComponentFixture<GreetingComponent>) => {
 			fixture = rootFixture;
 		});
 
