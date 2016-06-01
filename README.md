@@ -86,10 +86,9 @@ trigger the tests to run whenever you change the `.ts` source files.
 
 You can see the Karma configuration at `karma.conf.js`. A few things are notable:
 
- - It grabs Angular by including the `angular2` and `testing.js` files from
- `node_modules/angular2/bundles/`.
+ - It grabs Angular from `node_modules/@angular2/`.
 
- - The compiled JavaScript files at `src/**/*.js` are served and watched but _not_ included.
+ - The compiled JavaScript files at `built/**/*.js` are served and watched but _not_ included.
  This means that Karma will not run them automatically.
 
  - To get file imports to work correctly in Karma, we must include `systemjs`
