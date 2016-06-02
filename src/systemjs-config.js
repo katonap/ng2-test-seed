@@ -19,8 +19,7 @@
 		'compiler',
 		'core',
 		'platform-browser',
-		'platform-browser-dynamic',
-		'upgrade'
+		'platform-browser-dynamic'
 	];
 
 	// Add package entries for angular packages
