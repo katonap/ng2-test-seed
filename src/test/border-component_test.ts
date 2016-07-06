@@ -1,15 +1,10 @@
 import {Component} from '@angular/core';
 import {
 	async,
-	beforeEachProviders,
-	ddescribe,
-	describe,
-	expect,
-	iit,
+	ComponentFixture,
 	inject,
-	it
+	TestComponentBuilder
 } from '@angular/core/testing';
-import {ComponentFixture, TestComponentBuilder} from '@angular/compiler/testing';
 
 import {BorderComponent} from '../app/border-component';
 
