@@ -1,9 +1,9 @@
 import {provide} from '@angular/core';
 import {
-	addProviders,
 	async,
 	fakeAsync,
 	inject,
+	TestBed,
 	tick
 } from '@angular/core/testing';
 
@@ -14,7 +14,9 @@ import {LoginService} from '../app/login-service';
 
 describe('user service', () => {
 	beforeEach(() => {
-		addProviders([LoginService, UserService]);
+		TestBed.configureTestingModule({
+			providers: [LoginService, UserService]
+		});
 	});
 
 	it('should validate pins', inject([UserService], (service: UserService) => {
@@ -36,14 +38,14 @@ describe('user service', () => {
 		service.getGreeting().then((greeting) => {
 			expect(greeting).toEqual('Login failure!');
 		});
-	})), 3000);
+	})));
 
 	it('should greet when pin is right', async(inject([UserService], (service: UserService) => {
 		service.pin = 2015;
 		service.getGreeting().then((greeting) => {
 			expect(greeting).toEqual('Welcome!');
 		});
-	})), 3000);
+	})));
 });
 
 class MockLoginService implements LoginService {
@@ -54,7 +56,12 @@ class MockLoginService implements LoginService {
 
 describe('with mocked login', () => {
 	beforeEach(() => {
-		addProviders([provide(LoginService, { useClass: MockLoginService }), UserService]);
+		TestBed.configureTestingModule({
+			providers: [
+				provide(LoginService, { useClass: MockLoginService }),
+				UserService
+			]
+		});
 	});
 
 	it('should greet', async(inject([UserService], (service: UserService) => {
@@ -66,7 +73,9 @@ describe('with mocked login', () => {
 
 describe('with fake async', () => {
 	beforeEach(() => {
-		addProviders([LoginService, UserService]);
+		TestBed.configureTestingModule({
+			providers: [LoginService, UserService]
+		});
 	});
 
 	it('should greet (with fakeAsync)', fakeAsync(inject([UserService], (service: UserService) => {

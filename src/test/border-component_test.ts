@@ -3,7 +3,7 @@ import {
 	async,
 	ComponentFixture,
 	inject,
-	TestComponentBuilder
+	TestBed
 } from '@angular/core/testing';
 
 import {BorderComponent} from '../app/border-component';
@@ -14,24 +14,42 @@ import {BorderComponent} from '../app/border-component';
 })
 class TestComponent { }
 
-describe('greeting component', () => {
-	it('should wrap content', async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-		tcb.overrideTemplate(TestComponent, '<my-fancy-border>Content</my-fancy-border>')
-			.createAsync(TestComponent).then((fixture: ComponentFixture<TestComponent>) => {
-				fixture.detectChanges();
-				let compiled = fixture.nativeElement;
+describe('border component', () => {
+	beforeEach(() => {
+		TestBed.configureTestingModule({
+			declarations: [TestComponent]
+		});
+	});
 
-				expect(compiled).toContainText('Content');
-			});
-	})));
+	it('should wrap content', async(() => {
+		TestBed.overrideComponent(TestComponent, {
+			set: {
+				template: '<my-fancy-border>Content</my-fancy-border>'
+			}
+		});
 
-	it('should include a title', async(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-		tcb.overrideTemplate(TestComponent, '<my-fancy-border title="ABC"></my-fancy-border>')
-			.createAsync(TestComponent).then((fixture: ComponentFixture<TestComponent>) => {
-				fixture.detectChanges();
-				let compiled = fixture.nativeElement;
+		TestBed.compileComponents().then(() => {
+			let fixture = TestBed.createComponent(TestComponent);
+			fixture.detectChanges();
+			let compiled = fixture.debugElement.nativeElement;
 
-				expect(compiled).toContainText('ABC');
-			});
-	})));
+			expect(compiled).toContainText('Content');
+		});
+	}));
+
+	it('should include a title', async(() => {
+		TestBed.overrideComponent(TestComponent, {
+			set: {
+				template: '<my-fancy-border title="ABC"></my-fancy-border>'
+			}
+		});
+
+		TestBed.compileComponents().then(() => {
+			let fixture = TestBed.createComponent(TestComponent);
+			fixture.detectChanges();
+			let compiled = fixture.debugElement.nativeElement;
+
+			expect(compiled).toContainText('ABC');
+		});
+	}));
 });
