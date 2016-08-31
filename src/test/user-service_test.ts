@@ -1,14 +1,11 @@
-import {provide} from 'angular2/core';
+import {provide} from '@angular/core';
 import {
 	async,
-	beforeEachProviders,
-	describe,
-	expect,
 	fakeAsync,
 	inject,
-	it,
+	TestBed,
 	tick
-} from 'angular2/testing';
+} from '@angular/core/testing';
 
 import {UserService} from '../app/user-service';
 import {LoginService} from '../app/login-service';
@@ -16,7 +13,11 @@ import {LoginService} from '../app/login-service';
 
 
 describe('user service', () => {
-	beforeEachProviders(() => [LoginService, UserService]);
+	beforeEach(() => {
+		TestBed.configureTestingModule({
+			providers: [LoginService, UserService]
+		});
+	});
 
 	it('should validate pins', inject([UserService], (service: UserService) => {
 		service.pin = 12345;
@@ -37,14 +38,14 @@ describe('user service', () => {
 		service.getGreeting().then((greeting) => {
 			expect(greeting).toEqual('Login failure!');
 		});
-	})), 3000);
+	})));
 
 	it('should greet when pin is right', async(inject([UserService], (service: UserService) => {
 		service.pin = 2015;
 		service.getGreeting().then((greeting) => {
 			expect(greeting).toEqual('Welcome!');
 		});
-	})), 3000);
+	})));
 });
 
 class MockLoginService implements LoginService {
@@ -54,7 +55,14 @@ class MockLoginService implements LoginService {
 }
 
 describe('with mocked login', () => {
-	beforeEachProviders(() => [provide(LoginService, { useClass: MockLoginService }), UserService]);
+	beforeEach(() => {
+		TestBed.configureTestingModule({
+			providers: [
+				provide(LoginService, { useClass: MockLoginService }),
+				UserService
+			]
+		});
+	});
 
 	it('should greet', async(inject([UserService], (service: UserService) => {
 		service.getGreeting().then((greeting) => {
@@ -64,9 +72,13 @@ describe('with mocked login', () => {
 });
 
 describe('with fake async', () => {
-	beforeEachProviders(() => [LoginService, UserService]);
+	beforeEach(() => {
+		TestBed.configureTestingModule({
+			providers: [LoginService, UserService]
+		});
+	});
 
-	it('should greet (with fakeAsync)', inject([UserService], fakeAsync((service: UserService) => {
+	it('should greet (with fakeAsync)', fakeAsync(inject([UserService], (service: UserService) => {
 		let greeting: string;
 		service.getGreeting().then((value) => {
 			greeting = value;

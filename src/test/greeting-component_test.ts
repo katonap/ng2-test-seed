@@ -1,17 +1,13 @@
-import {provide} from 'angular2/core';
+import {DeprecatedFormsModule} from '@angular/common';
+import {provide} from '@angular/core';
 import {
 	async,
-	beforeEach,
-	beforeEachProviders,
 	ComponentFixture,
-	describe,
-	expect,
 	fakeAsync,
 	inject,
-	it,
-	TestComponentBuilder,
+	TestBed,
 	tick
-} from 'angular2/testing';
+} from '@angular/core/testing';
 
 import {UserService} from '../app/user-service';
 import {LoginService} from '../app/login-service';
@@ -26,79 +22,93 @@ class MockLoginService implements LoginService {
 }
 
 describe('greeting component', () => {
-	let builder: TestComponentBuilder;
+	beforeEach(() => {
+		TestBed.configureTestingModule({
+			declarations: [GreetingComponent],
+			providers: [
+				provide(LoginService, { useClass: MockLoginService }),
+				UserService
+			],
+			imports: [DeprecatedFormsModule]
+		});
+	});
 
-	beforeEachProviders(() => [
-		provide(LoginService, { useClass: MockLoginService }),
-		UserService
-	]);
+	describe('without overriding', () => {
+		beforeEach(async(() => {
+			TestBed.compileComponents();
+		}));
 
-	beforeEach(inject([TestComponentBuilder], (tcb: TestComponentBuilder) => {
-		builder = tcb;
-	}));
-
-	it('should ask for PIN', async(() => {
-		builder.createAsync(GreetingComponent).then((fixture) => {
+		it('should ask for PIN', async(() => {
+			let fixture = TestBed.createComponent(GreetingComponent);
 			fixture.detectChanges();
-			let compiled = fixture.nativeElement;
+			let compiled = fixture.debugElement.nativeElement;
 
 			expect(compiled).toContainText('Enter PIN');
 			expect(compiled.querySelector('h3')).toHaveText('Status: Enter PIN');
-		});
-	}));
+		}));
 
-	it('should change greeting', async(() => {
-		builder.createAsync(GreetingComponent).then((fixture) => {
-			fixture.detectChanges();
-			(<GreetingComponent>fixture.componentInstance).greeting = "Foobar";
+		it('should change the greeting', async(() => {
+			let fixture = TestBed.createComponent(GreetingComponent);
 			fixture.detectChanges();
 
-			let compiled = fixture.nativeElement;
+			fixture.debugElement.componentInstance.greeting = 'Foobar';
 
+			fixture.detectChanges();
+			let compiled = fixture.debugElement.nativeElement;
 			expect(compiled.querySelector('h3')).toHaveText('Status: Foobar');
-		});
-	}));
+		}));
 
-	it('should override the template', async(() => {
-		builder
-			.overrideTemplate(GreetingComponent, `<span>{{greeting}}<span>`)
-			.createAsync(GreetingComponent)
-			.then((fixture) => {
-				fixture.detectChanges();
-
-				let compiled = fixture.nativeElement;
-
-				expect(compiled).toHaveText('Enter PIN');
-			});
-	}));
-
-	it('should accept pin', async(() => {
-		builder.createAsync(GreetingComponent).then((fixture) => {
+		it('should accept pin', async(() => {
+			let fixture = TestBed.createComponent(GreetingComponent);
 			fixture.detectChanges();
-
-			let compiled = fixture.nativeElement;
+			let compiled = fixture.debugElement.nativeElement;
 			compiled.querySelector('button').click();
 
-			fixture.componentInstance.pending.then(() => {
+			fixture.debugElement.componentInstance.pending.then(() => {
 				fixture.detectChanges();
 				expect(compiled.querySelector('h3')).toHaveText('Status: Welcome!');
 			});
-		});
-	}));
+		}));
 
-	it('should accept pin (with fakeAsync)', fakeAsync(() => {
-		let fixture: ComponentFixture;
-		builder.createAsync(GreetingComponent).then((rootFixture) => {
-			fixture = rootFixture;
-		});
+		it('should accept pin (with whenStable)', async(() => {
+			let fixture = TestBed.createComponent(GreetingComponent);
+			fixture.detectChanges();
+			let compiled = fixture.debugElement.nativeElement;
+			compiled.querySelector('button').click();
 
-		tick();
+			fixture.whenStable().then(() => {
+				fixture.detectChanges();
+				expect(compiled.querySelector('h3')).toHaveText('Status: Welcome!');
+			});
+		}));
 
-		let compiled = fixture.nativeElement;
-		compiled.querySelector('button').click();
-		tick();
-		fixture.detectChanges();
+		it('should accept pin (with fakeAsync)', fakeAsync(() => {
+			let fixture = TestBed.createComponent(GreetingComponent);
 
-		expect(compiled.querySelector('h3')).toHaveText('Status: Welcome!');
-	}));
+			let compiled = fixture.debugElement.nativeElement;
+			compiled.querySelector('button').click();
+
+			tick();
+			fixture.detectChanges();
+			expect(compiled.querySelector('h3')).toHaveText('Status: Welcome!');
+		}));
+	});
+
+	describe('overriding', () => {
+		it('should override the template', async(() => {
+			TestBed
+				.overrideComponent(GreetingComponent, {
+					set: {
+						template: `<span>Foo {{greeting}}<span>`
+					}
+				})
+				.compileComponents().then(() => {
+					let fixture = TestBed.createComponent(GreetingComponent);
+					fixture.detectChanges();
+
+					let compiled = fixture.debugElement.nativeElement;
+					expect(compiled).toHaveText('Foo Enter PIN');
+				});
+		}));
+	});
 });

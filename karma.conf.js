@@ -6,32 +6,35 @@ module.exports = function (config) {
 		frameworks: ['jasmine'],
 
 		files: [
-			// System.js for module loading
-			'node_modules/systemjs/dist/system-polyfills.js',
-			'node_modules/systemjs/dist/system.src.js',
-
-			// Polyfills.
-			'node_modules/es6-shim/es6-shim.js',
-			'node_modules/angular2/bundles/angular2-polyfills.js',
+			// Polyfills
+			'node_modules/core-js/client/shim.js',
+			'node_modules/reflect-metadata/Reflect.js',
 
 			// Zone.js dependencies
-			// Note - do not include zone.js itself here, it is already
-			// included in angular2-polyfills
+			'node_modules/zone.js/dist/zone.js',
+			'node_modules/zone.js/dist/long-stack-trace-zone.js',
+			'node_modules/zone.js/dist/proxy.js',
+			'node_modules/zone.js/dist/sync-test.js',
 			'node_modules/zone.js/dist/jasmine-patch.js',
 			'node_modules/zone.js/dist/async-test.js',
 			'node_modules/zone.js/dist/fake-async-test.js',
 
-			// RxJs.
-			'node_modules/rxjs/bundles/Rx.js',
+			// System.js for module loading
+			'node_modules/systemjs/dist/system.src.js',
 
-			// Angular 2 itself and the testing library.
-			'node_modules/angular2/bundles/angular2.js',
-			'node_modules/angular2/bundles/testing.dev.js',
+			// RxJs
+			{ pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
+			{ pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
 
 			{ pattern: 'karma-test-shim.js', included: true, watched: true },
 			{ pattern: 'built/test/matchers.js', included: true, watched: true },
 
 			// paths loaded via module imports
+			// Angular itself
+			{ pattern: 'node_modules/@angular/**/*.js', included: false, watched: true },
+			{ pattern: 'node_modules/@angular/**/*.js.map', included: false, watched: true },
+
+			// Our built application code
 			{ pattern: 'built/**/*.js', included: false, watched: true },
 
 			// paths loaded via Angular's component compiler
@@ -56,6 +59,6 @@ module.exports = function (config) {
 		logLevel: config.LOG_INFO,
 		autoWatch: true,
 		browsers: ['Chrome', 'Firefox', 'IE'],
-		singleRun: false
+		singleRun: true
 	});
 }
