@@ -1,5 +1,3 @@
-import {DeprecatedFormsModule} from '@angular/common';
-import {provide} from '@angular/core';
 import {
 	async,
 	ComponentFixture,
@@ -8,6 +6,7 @@ import {
 	TestBed,
 	tick
 } from '@angular/core/testing';
+import {FormsModule} from '@angular/forms';
 
 import {UserService} from '../app/user-service';
 import {LoginService} from '../app/login-service';
@@ -26,10 +25,10 @@ describe('greeting component', () => {
 		TestBed.configureTestingModule({
 			declarations: [GreetingComponent],
 			providers: [
-				provide(LoginService, { useClass: MockLoginService }),
+				{ provide: LoginService, useClass: MockLoginService },
 				UserService
 			],
-			imports: [DeprecatedFormsModule]
+			imports: [FormsModule]
 		});
 	});
 

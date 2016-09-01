@@ -1,4 +1,3 @@
-import {provide} from '@angular/core';
 import {
 	async,
 	fakeAsync,
@@ -58,7 +57,7 @@ describe('with mocked login', () => {
 	beforeEach(() => {
 		TestBed.configureTestingModule({
 			providers: [
-				provide(LoginService, { useClass: MockLoginService }),
+				{ provide: LoginService, useClass: MockLoginService },
 				UserService
 			]
 		});
