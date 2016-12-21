@@ -29,8 +29,5 @@ node_modules
 # Compiled output
 built/
 
-# Typescript definitions
-typings
-
 # Visual Studio Code settings
 .vscode
